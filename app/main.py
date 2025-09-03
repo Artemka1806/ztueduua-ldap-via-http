@@ -20,6 +20,7 @@ LDAP_SERVER = os.getenv("LDAP_SERVER", "")
 LDAP_PORT = int(os.getenv("LDAP_PORT", "389"))
 LDAP_BIND_DN_SUFFIX = os.getenv("LDAP_BIND_DN", "")
 LDAP_BASE_DN = os.getenv("LDAP_BASE_DN", "")
+ROOT_PATH = os.getenv("ROOT_PATH", "")
 
 
 def authenticate_ldap(login: str, password: str) -> Optional[Dict[str, Any]]:
@@ -57,7 +58,12 @@ def authenticate_ldap(login: str, password: str) -> Optional[Dict[str, Any]]:
         return None
 
 
-app = FastAPI(title="LDAP via HTTP", version="1.0.0")
+app = FastAPI(
+    title="ztu.edu.ua LDAP via HTTP",
+    description="Штука яка дозволяє отримувати інформацію про користувача з LDAP-серверу Житомирської політехніки через HTTP",
+    version="1.0.0",
+    root_path=ROOT_PATH,
+)
 
 
 @app.get("/healthz")
